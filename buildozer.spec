@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy==2.1.0, https://github.com/kivymd/KivyMD/archive/master.zip, https://github.com/kivy-garden/graph/archive/master.zip, pillow, ffmpeg, ffpyplayer, ffpyplayer_codecs, Kivy-Garden==0.1.5, future, kivy-garden.graph, docutils,requests,certifi,charset-normalizer,idna,pygments,pillow,pyenchant,altgraph,future,wheel
+requirements = python3, kivy==2.1.0, https://github.com/kivymd/KivyMD/archive/master.zip, https://github.com/kivy-garden/graph/archive/master.zip, pillow, ffpyplayer, ffpyplayer_codecs, Kivy-Garden==0.1.5, future, kivy-garden.graph, docutils,requests,certifi,charset-normalizer,idna,pygments,pillow,pyenchant,altgraph,future,wheel
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
