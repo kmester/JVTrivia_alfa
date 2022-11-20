@@ -1,0 +1,2432 @@
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import SwapTransition kivy.uix.screenmanager.SwapTransition
+#:import WipeTransition kivy.uix.screenmanager.WipeTransition
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#:import FallOutTransition kivy.uix.screenmanager.FallOutTransition
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import ShaderTransition kivy.uix.screenmanager.ShaderTransition
+#:import Window kivy.core.window.Window
+#:import MDFillRoundFlatButton kivymd.uix.button.MDFillRoundFlatButton
+#:import PixelTransition kivy.garden.moretransitions.PixelTransition
+#:import RippleTransition kivy.garden.moretransitions.RippleTransition
+#:import BlurTransition kivy.garden.moretransitions.BlurTransition
+#:import RVBTransition kivy.garden.moretransitions.RVBTransition
+#:import RGBA kivy.utils.get_color_from_hex
+
+
+WindowManager:
+    MainMenuScreen:
+    FreeGameScreen:
+    ChooseChapters:
+    ChapterGameScreen:
+    GameScreen:
+
+
+
+<MainMenuScreen>:
+    name: "main_menu_screen"
+    canvas:
+        Color:
+            rgba: RGBA("#8D99AE")
+        Rectangle:
+            pos: self.x, self.y
+            size: self.width, self.height
+        # Alsó menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, 0
+            size: root.width, root.height*0.08
+        # Felső menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, root.height * 0.92
+            size: root.width, root.height*0.08
+        #Alsó vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.08, root.width, root.height*0.08
+        #felső vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.92, root.width, root.height*0.92
+
+    MDFloatLayout:
+        pos: 0, 0
+        size: root.width, root.height
+
+        MDFloatLayout:
+            pos: 0, root.height*0.92
+            size: root.width, root.height*0.08
+
+            MDIconButton:
+                id: my_home
+                icon: 'home-circle'
+                pos_hint: {'center_x': 0.1, 'center_y': 0.04}
+                size_hint: None, None
+                size: self.size
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 32
+                on_release:
+                    self.parent.parent.parent.go_to_main_menu()
+
+            MDIconButton:
+                id: my_gamepad
+                icon: 'gamepad-variant'
+                pos_hint: {'center_x': 0.26, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_freegame()
+
+            MDIconButton:
+                id: my_soccer
+                icon: 'soccer-field'
+                pos_hint: {'center_x': 0.42, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_chaptergame()
+
+            MDIconButton:
+                id: my_exam
+                icon: 'account-school'
+                pos_hint: {'center_x': 0.58, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_gamescreen()
+
+            MDIconButton:
+                id: my_icon_volume
+                icon: 'volume-mute'
+                pos_hint: {'center_x': 0.74, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                icon_color: RGBA("#EDF2F4")
+                on_press:
+                    self.parent.parent.parent.set_the_background_music()
+                    self.icon_color = RGBA("#EDF2F4")
+
+
+            MDIconButton:
+                id: my_exit
+                icon: 'exit-run'
+                pos_hint: {'center_x': 0.9, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_exit()
+
+        Image:
+            source: 'jv_trivia_icon.png'
+            allow_stretch: True
+            size: self.size
+            size_hint: 0.65, 0.65
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+
+        MDLabel:
+            text: "Szabad játék"
+            pos_hint: {'center_x': 0.2, 'center_y': 0.77}
+            size: self.size
+            size_hint: 0.4, 0.2
+            halign: "center"
+            allow_stretch: True
+            font_style: "Caption"
+            font_size: 13
+            italic: True
+            bold: False
+            color: RGBA("#EDF2F4")
+
+        # Szabad játék gomb
+        MDFloatingActionButton:
+            id: my_main_menu_button_1
+            icon: 'gamepad-variant'
+            pos_hint: {"center_x": 0.2, "center_y": .7}
+            size: self.size
+            text_color: RGBA("#EDF2F4")
+            md_bg_color: ("#8D99AE")
+            user_font_size: 30
+            icon_size: 30
+            elevation: 3.5
+            shadow_offset: 0, 6
+            text: "Szabad játék"
+            markup: True
+            on_release:
+                self.parent.parent.go_to_freegame()
+
+        MDLabel:
+            text: "Tematikus gyakorlás"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.85}
+            size: self.size
+            size_hint: 0.4, 0.2
+            halign: "center"
+            allow_stretch: True
+            font_style: "Caption"
+            font_size: 13
+            bold: False
+            color: RGBA("#EDF2F4")
+            italic: True
+
+        # Szabad játék gomb
+        MDFloatingActionButton:
+            id: my_main_menu_button_2
+            icon: 'soccer-field'
+            pos_hint: {"center_x": .5, "center_y": .78}
+            text_color: RGBA("#EDF2F4")
+            md_bg_color: ("#8D99AE")
+            user_font_size: 30
+            icon_size: 30
+            elevation: 3.5
+            shadow_offset: 0, 6
+            text: "Tematikus gyakorlás"
+            markup: True
+            on_release:
+                self.parent.parent.go_to_chaptergame()
+
+        MDLabel:
+            text: "Vizsgamód"
+            pos_hint: {'center_x': 0.8, 'center_y': 0.77}
+            size: self.size
+            size_hint: 0.4, 0.2
+            halign: "center"
+            allow_stretch: True
+            font_style: "Caption"
+            font_size: 13
+            italic: True
+            bold: False
+            color: RGBA("#EDF2F4")
+
+        MDFloatingActionButton:
+            id: my_main_menu_button_3
+            icon: 'account-school'
+            pos_hint: {"center_x": .8, "center_y": .7}
+            text_color: RGBA("#EDF2F4")
+            md_bg_color: ("#8D99AE")
+            user_font_size: 30
+            icon_size: 30
+            elevation: 3.5
+            shadow_offset: 0, 6
+            text: "Vizsga"
+            markup: True
+            on_release:
+                self.parent.parent.go_to_gamescreen()
+
+
+        MDCard:
+            pos_hint: {'x': 0.1, 'y': 0.22}
+            size: root.width*0.8,root.height*0.05
+            size_hint: None, None
+            md_bg_color: RGBA("#8D99AD")
+            elevation: 3
+            radius: 10,10,10,10
+            shadow_offset: 0, 3
+
+            MDRelativeLayout:
+                MDIcon:
+                    icon: 'gamepad-variant'
+                    pos_hint: {'center_x':0.08, 'center_y': 0.5}
+                    theme_text_color: "Custom"
+                    text_color: RGBA('#EDF2F4')
+                    font_size: 20
+                MDLabel:
+                    text: 'Véletlenszerű kérdések a teljes szabálykönyvből'
+                    pos_hint: {'x':0.14, 'center_y': 0.5}
+                    size: self.size
+                    halign: "left"
+                    font_style: 'Body1'
+                    color: RGBA('#EDF2F4')
+                    font_size: 11
+                    bold: False
+
+
+        MDCard:
+            pos_hint: {'x': 0.1, 'y': 0.16}
+            size: root.width*0.8,root.height*0.05
+            size_hint: None, None
+            md_bg_color: RGBA("#8D99AD")
+            elevation: 3
+            radius: 10,10,10,10
+            shadow_offset: 0, 3
+
+            MDRelativeLayout:
+                MDIcon:
+                    icon: 'soccer-field'
+                    pos_hint: {'center_x':0.08, 'center_y': 0.5}
+                    theme_text_color: "Custom"
+                    text_color: RGBA('#EDF2F4')
+                    font_size: 20
+
+                MDLabel:
+                    text: 'Szabálykönyv adott fejezetének gyakorlása'
+                    pos_hint: {'x':0.14, 'center_y': 0.5}
+                    size: self.size
+                    halign: "left"
+                    font_style: 'Body1'
+                    color: RGBA('#EDF2F4')
+                    font_size: 11
+                    bold: False
+
+        MDCard:
+            pos_hint: {'x': 0.1, 'y': 0.1}
+            size: root.width*0.8,root.height*0.05
+            size_hint: None, None
+            md_bg_color: RGBA("#8D99AD")
+            elevation: 3
+            radius: 10,10,10,10
+            shadow_offset: 0, 3
+
+            MDRelativeLayout:
+                MDIcon:
+                    icon: 'account-school'
+                    pos_hint: {'center_x':0.08, 'center_y': 0.5}
+                    theme_text_color: "Custom"
+                    text_color: RGBA('#EDF2F4')
+                    font_size: 20
+
+                MDLabel:
+                    text: '25 kérdéses írásbeli vizsga szimulációja'
+                    pos_hint: {'x':0.14, 'center_y': 0.5}
+                    size: self.size
+                    halign: "left"
+                    font_style: 'Body1'
+                    color: RGBA('#EDF2F4')
+                    font_size: 11
+                    bold: False
+
+
+        MDIcon:
+            id: my_icon_email
+            icon: 'email'
+            pos_hint: {'x': 0.15, 'center_y': 0.046}
+            font_size: 14
+            color: RGBA("#EDF2F4")
+
+        MDLabel:
+            id: label_mail
+            text: 'krisztofo007@gmail.com'
+            pos_hint: {'x': 0.19, 'center_y': 0.045}
+            size: self.size
+            border: 1, 0, 1, 1
+            font_style: "Overline"
+            font_size: 9
+            bold: False
+            color: RGBA("#EDF2F4")
+
+        MDIcon:
+            id: my_icon_linkedin
+            icon: 'linkedin'
+            pos_hint: {'x': 0.55, 'center_y': 0.046}
+            font_size: 14
+            color: RGBA("#EDF2F4")
+
+        MDLabel:
+            id: label_linkedin
+            text: 'linkedin.com/in/kkt007'
+            pos_hint: {'x': 0.59, 'center_y': 0.045}
+            size: self.size
+            font_style: "Overline"
+            font_size: 9
+            bold: False
+            color: RGBA("#EDF2F4")
+
+        MDLabel:
+            id: label_development
+            text: 'Developed by Python kivyMD and the sound effects obtained from Zapsplat.com'
+            pos_hint: {'center_x': 0.50, 'center_y': 0.015}
+            font_style: "Body1"
+            halign: "center"
+            font_size: 7.5
+            italic: True
+            color: RGBA("#EDF2F4")
+
+
+<FreeGameScreen>:
+    name: "free_game_screen"
+    canvas:
+        Color:
+            rgba: RGBA("#8D99AE")
+        Rectangle:
+            pos: self.x, self.y
+            size: self.width, self.height
+
+        # Alsó menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, 0
+            size: root.width, root.height*0.08
+        # Felső menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, root.height * 0.92
+            size: root.width, root.height*0.08
+        #Alsó vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.08, root.width, root.height*0.08
+        #felső vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.92, root.width, root.height*0.92
+
+
+    MDFloatLayout:
+        pos: 0, 0
+        size: root.width, root.height
+
+        Image:
+            id: jvtrivia_icon_freegame
+            source: 'jv_trivia_icon.png'
+            allow_stretch: True
+            allow_stretch: True
+
+        MDFloatLayout:
+            pos: 0, root.height*0.92
+            size: root.width, root.height*0.08
+
+            MDIconButton:
+                id: my_home
+                icon: 'home-circle'
+                pos_hint: {'center_x': 0.1, 'center_y': 0.04}
+                size_hint: None, None
+                size: 1,1
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 32
+                on_release:
+                    self.parent.parent.parent.go_to_main_menu()
+
+            MDIconButton:
+                id: my_gamepad
+                icon: 'gamepad-variant'
+                pos_hint: {'center_x': 0.26, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_freegame()
+
+            MDIconButton:
+                id: my_soccer
+                icon: 'soccer-field'
+                pos_hint: {'center_x': 0.42, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_chaptergame()
+
+            MDIconButton:
+                id: my_exam
+                icon: 'account-school'
+                pos_hint: {'center_x': 0.58, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_gamescreen()
+
+            MDIconButton:
+                id: my_icon_volume
+                icon: 'volume-mute'
+                pos_hint: {'center_x': 0.74, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                icon_color: RGBA("#EDF2F4")
+                on_press:
+                    self.parent.parent.parent.set_the_background_music()
+                    self.icon_color = RGBA("#EDF2F4")
+
+
+            MDIconButton:
+                id: my_exit
+                icon: 'exit-run'
+                pos_hint: {'center_x': 0.9, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_exit()
+
+
+
+        MDFloatLayout:
+            pos: 0, root.height*0.08
+            size: root.width, root.height*0.08
+
+        MDLabel:
+            id: my_quote
+            size: self.size
+            text: "Futni meg lehet tanulni, focizni meg tudni kell!"
+            pos_hint: {'x': 0.33, 'center_y': 0.055}
+            size_hint: 0.65, 0.06
+
+            font_style: "Caption"
+            italic: True
+            font_size: 9
+            color: RGBA("#EDF2F4")
+            valign: "bottom"
+
+        MDLabel:
+            id: my_quote_author
+            size: self.size
+            text: "Tóth II. József"
+            pos_hint: {'x': 0.8, 'center_y': 0.02}
+            size_hint: 1, 0.02
+            font_style: "Caption"
+            font_size: 9
+            bold: True
+            color: RGBA("#EDF2F4")
+
+    MDFloatLayout:
+        pos: 0, 0
+        size: root.width, root.height
+
+        MDLabel:
+            id: label_question
+            pos_hint: {'x': 0.05, 'center_y': 0.86}
+            size_hint: 0.9, 0.12
+            text_size: self.size
+            valign: 'middle'
+            font_size: 16
+            font_style: "Subtitle1"
+            bold: True
+            color: RGBA('#3B3838')
+
+        MDGridLayout:
+            pos_hint:{'x': 0.1, 'y': 0.25}
+            size_hint: None, None
+            size: root.width *0.8, root.height *0.55
+            cols: 1
+            spacing: 15
+
+            MDRaisedButton:
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+
+                # Gomb háttere
+                md_bg_color: RGBA('#EDF2F4')
+
+                font_name: "Roboto"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+
+                line_color: RGBA("#EDF2F4")
+                #bg_hint_color: app.theme_cls.primary_dark
+
+                # Border beállítása
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+
+                pos_hint: {'center_x': 0.1}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_A
+                group: 'freegamebutton'
+                on_release:
+                    my_button_A.disabled = True
+                    my_button_B.disabled = True
+                    my_button_C.disabled = True
+                    my_button_D.disabled = True
+                    my_button_A.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_B.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_C.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_D.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_A.disabled_color = RGBA('#404040')
+                    my_button_B.disabled_color = RGBA('#404040')
+                    my_button_C.disabled_color = RGBA('#404040')
+                    my_button_D.disabled_color = RGBA('#404040')
+                    my_button_A.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+            MDRaisedButton:
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+
+                # Gomb háttere
+                md_bg_color: '#EDF2F4'
+
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+
+                line_color: RGBA("#EDF2F4")
+                #bg_hint_color: app.theme_cls.primary_dark
+
+                # Border beállítása
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_B
+                group: 'freegamebutton'
+                on_release:
+                    my_button_A.disabled = True
+                    my_button_B.disabled = True
+                    my_button_C.disabled = True
+                    my_button_D.disabled = True
+                    my_button_B.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_A.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_C.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_D.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_A.disabled_color = RGBA('#404040')
+                    my_button_C.disabled_color = RGBA('#404040')
+                    my_button_D.disabled_color = RGBA('#404040')
+
+                    my_button_B.disabled_color = RGBA('#404040')
+                    my_button_B.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+            MDRaisedButton:
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+                md_bg_color: '#EDF2F4'
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+                line_color: RGBA("#EDF2F4")
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_C
+                group: 'freegamebutton'
+                on_release:
+                    my_button_A.disabled = True
+                    my_button_B.disabled = True
+                    my_button_C.disabled = True
+                    my_button_D.disabled = True
+                    my_button_C.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_A.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_B.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_D.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_A.disabled_color = RGBA('#404040')
+                    my_button_B.disabled_color = RGBA('#404040')
+                    my_button_D.disabled_color = RGBA('#404040')
+                    my_button_C.disabled_color = RGBA('#404040')
+                    my_button_C.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+            MDRaisedButton:
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+                md_bg_color: '#EDF2F4'
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+                line_color: RGBA("#EDF2F4")
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_D
+                group: 'freegamebutton'
+                on_release:
+                    my_button_A.disabled = True
+                    my_button_B.disabled = True
+                    my_button_C.disabled = True
+                    my_button_D.disabled = True
+                    my_button_D.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_A.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_B.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_C.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_A.disabled_color = RGBA('#404040')
+                    my_button_C.disabled_color = RGBA('#404040')
+                    my_button_B.disabled_color = RGBA('#404040')
+                    my_button_D.disabled_color = RGBA('#404040')
+                    my_button_D.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+        MDIconButton:
+            id: my_pause_freegame
+            icon: 'pause-circle'
+            pos_hint: {'x': 0.835, 'center_y': 0.16}
+            size_hint: None, None
+            size: self.size
+            theme_text_color: "Custom"
+            text_color: RGBA("#EDF2F4")
+            user_font_size: 0
+            icon_size: 36
+            disabled: True
+            disabled_color: (0,0,0,0)
+            on_release:
+                self.parent.parent.pause_freegame()
+
+        MDIconButton:
+            id: my_play_freegame
+            icon: 'play-circle'
+            pos_hint: {'x': 0.835, 'center_y': 0.16}
+            size_hint: None, None
+            size: self.size
+            theme_text_color: "Custom"
+            text_color: RGBA("#EDF2F4")
+            user_font_size: 0
+            icon_size: 36
+            disabled: True
+            disabled_color: (0,0,0,0)
+            on_release:
+                self.parent.parent.resume_freegame()
+
+
+        MDCard:
+            pos_hint: {'x': 0.4, 'y': 0.12}
+            size: root.width*0.4,root.height*0.09
+            size_hint: None, None
+            md_bg_color: RGBA("#8D99AD")
+            elevation: 3.5
+            radius: 5,5,5,5
+            shadow_offset: 0, 3
+
+            MDRelativeLayout:
+
+                MDLabel:
+                    text: "EREDMÉNYJELZŐ"
+                    pos_hint: {'center_x':0.5, 'center_y': 0.8}
+                    size: self.size
+                    halign: "center"
+                    font_style: 'Caption'
+                    color: RGBA('#EDF2F4')
+                    font_size: 12
+                    bold: True
+
+                MDLabel:
+                    text: "VS"
+                    pos_hint: {'center_x':0.5, 'center_y': 0.35}
+                    size: self.size
+                    halign: "center"
+                    font_style: 'Caption'
+                    color: RGBA('#EDF2F4')
+                    font_size: 10
+                    bold: True
+                    italic: True
+
+                MDIcon:
+                    id: label_score_icon
+                    icon: 'emoticon-cool'
+                    pos_hint: {'center_x':0.2, 'center_y': 0.35}
+                    theme_text_color: "Custom"
+                    text_color: RGBA('#50F263')
+                    font_size: 25
+
+                MDIcon:
+                    id: label_wrong_icon
+                    icon: 'emoticon-angry'
+                    pos_hint: {'center_x': 0.7, 'center_y': 0.35}
+                    theme_text_color: "Custom"
+                    text_color: RGBA("#F25063")
+                    font_size: 25
+
+                MDLabel:
+                    id: label_score
+                    size: self.size
+                    halign: "center"
+                    pos_hint: {'center_x': 0.34, 'center_y': 0.35}
+                    font_style: "Overline"
+                    font_size: 25
+                    bold: True
+                    color: RGBA("#50F263")
+
+                MDLabel:
+                    id: sum_label_questions
+                    size: self.size
+                    halign: "center"
+                    pos_hint: {'center_x': 0.84, 'center_y': 0.35}
+                    font_style: "Overline"
+                    font_size: 25
+                    bold: True
+                    color: RGBA("#F25063")
+
+
+<ChooseChapters>:
+    name: "choose_chapters_screen"
+    canvas:
+        Color:
+            rgba: RGBA("#8D99AE")
+        Rectangle:
+            pos: self.x, self.y
+            size: self.width, self.height
+
+        # Alsó menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, 0
+            size: root.width, root.height*0.08
+        # Felső menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, root.height * 0.92
+            size: root.width, root.height*0.08
+        #Alsó vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.08, root.width, root.height*0.08
+        #felső vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.92, root.width, root.height*0.92
+
+    MDFloatLayout:
+        pos: 0, 0
+        size: root.width, root.height
+
+        Image:
+            id: jvtrivia_icon_choosechapters
+            source: 'jv_trivia_icon.png'
+            allow_stretch: True
+            allow_stretch: True
+
+
+        MDLabel:
+            id: my_quote
+            size: self.size
+            text: "Futni meg lehet tanulni, focizni meg tudni kell!"
+            pos_hint: {'x': 0.3, 'center_y': 0.055}
+            size_hint: 0.65, 0.06
+
+            font_style: "Caption"
+            italic: True
+            font_size: 9
+            color: RGBA("#EDF2F4")
+            valign: "bottom"
+
+        MDLabel:
+            id: my_quote_author
+            size: self.size
+            text: "Tóth II. József"
+            pos_hint: {'x': 0.8, 'center_y': 0.02}
+            size_hint: 1, 0.02
+            font_style: "Caption"
+            font_size: 9
+            bold: True
+            color: RGBA("#EDF2F4")
+
+
+        MDFloatLayout:
+            pos: 0, root.height*0.92
+            size: root.width, root.height*0.08
+
+            MDIconButton:
+                id: my_home
+                icon: 'home-circle'
+                pos_hint: {'center_x': 0.1, 'center_y': 0.04}
+                size_hint: None, None
+                size: 1,1
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 32
+                on_release:
+                    self.parent.parent.parent.go_to_main_menu()
+
+            MDIconButton:
+                id: my_gamepad
+                icon: 'gamepad-variant'
+                pos_hint: {'center_x': 0.26, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_freegame()
+
+            MDIconButton:
+                id: my_soccer
+                icon: 'soccer-field'
+                pos_hint: {'center_x': 0.42, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_chaptergame()
+
+            MDIconButton:
+                id: my_exam
+                icon: 'account-school'
+                pos_hint: {'center_x': 0.58, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_gamescreen()
+
+            MDIconButton:
+                id: my_icon_volume
+                icon: 'volume-mute'
+                pos_hint: {'center_x': 0.74, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                icon_color: RGBA("#EDF2F4")
+                on_press:
+                    self.parent.parent.parent.set_the_background_music()
+                    self.icon_color = RGBA("#EDF2F4")
+
+
+            MDIconButton:
+                id: my_exit
+                icon: 'exit-run'
+                pos_hint: {'center_x': 0.9, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_exit()
+
+
+    MDGridLayout:
+        #adaptive_size: True
+        orientation: 'rl-tb'
+        pos_hint:{'x': 0.1, 'y': 0.12}
+        size_hint: None, None
+        size: root.width *0.8, root.height * 0.78
+        cols: 2
+        spacing: 10
+
+
+
+        MDRaisedButton:
+            text: "2 - A labda"
+
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_2
+            on_release:
+                self.parent.parent.update_questions(2)
+                self.parent.parent.clearing()
+
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "1 - A játéktér"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+
+            id: my_chapter_1
+            index: 1
+
+            on_release:
+                self.parent.parent.update_questions(1)
+                self.parent.parent.clearing()
+
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "4 - A játékosok felszerelése"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_4
+            on_release:
+                self.parent.parent.update_questions(4)
+                self.parent.parent.clearing()
+
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "3 - A játékosok"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_3
+            on_release:
+                self.parent.parent.update_questions(3)
+                self.parent.parent.clearing()
+                self.parent.parent.set_quotes_chapter_game()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+
+
+        MDRaisedButton:
+            text: "6 - A mérkőzés további \nhivatalos személyei"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_6
+            on_release:
+                self.parent.parent.update_questions(6)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "5 - A játékvezető"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_5
+            on_release:
+                self.parent.parent.update_questions(5)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+
+
+        MDRaisedButton:
+            text: "8 - A játék kezdése \nés újraindítása"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_8
+            on_release:
+                self.parent.parent.update_questions(8)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "7 - A mérkőzés időtartama"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_7
+            on_release:
+                self.parent.parent.update_questions(7)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+
+
+        MDRaisedButton:
+            text: "10 - A mérkőzés \nvégeredményének \nmeghatározása"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_10
+            on_release:
+                self.parent.parent.update_questions(10)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "9 - A labda játékban \nés játékon kívül"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_9
+            on_release:
+                self.parent.parent.update_questions(9)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+
+
+        MDRaisedButton:
+            text: "12 - Szabálytalanságok és \nsportszerűtlen viselkedés"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_12
+            on_release:
+                self.parent.parent.update_questions(12)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "11 - A les"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_11
+            on_release:
+                self.parent.parent.update_questions(11)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+
+
+        MDRaisedButton:
+            text: "14 - A büntetőrúgás"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_14
+            on_release:
+                self.parent.parent.update_questions(14)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "13 - Szabadrúgások"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_13
+            on_release:
+                self.parent.parent.update_questions(13)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+
+
+        MDRaisedButton:
+            text: "16 - A kirúgás"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_16
+            on_release:
+                self.parent.parent.update_questions(16)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "15 - A bedobás"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_15
+            on_release:
+                self.parent.parent.update_questions(15)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+        MDRaisedButton:
+            text: "17 - A szögletrúgás"
+            font_size: 10
+            elevation: 3
+            root_button_anim: True
+            hint_animation: True
+            theme_text_color: "Custom"
+            text_color: RGBA('#404040')
+            md_bg_color: '#EDF2F4'
+            font_name: "Arial"
+            halign: "center"
+
+            font_style: 'Body1'
+            bold: True
+            italic: True
+            line_color: RGBA("#EDF2F4")
+            line_width: 1
+            line_color: RGBA("#EDF2F4")
+
+
+            pos_hint: {'x': 0.1}
+            size_hint: root.width *0.2, root.width *0.1
+            id: my_main_menu_button_17
+            on_release:
+                self.parent.parent.update_questions(17)
+                self.parent.parent.clearing()
+                root.manager.transition = SlideTransition()
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 3.0
+                Window.clearcolor = RGBA("#8D99AE")
+                app.root.current = "chapter_game_screen"
+
+
+
+
+
+<ChapterGameScreen>:
+    name: "chapter_game_screen"
+    canvas:
+        Color:
+            rgba: RGBA("#8D99AE")
+        Rectangle:
+            pos: self.x, self.y
+            size: self.width, self.height
+
+        # Alsó menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, 0
+            size: root.width, root.height*0.08
+        # Felső menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, root.height * 0.92
+            size: root.width, root.height*0.08
+        #Alsó vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.08, root.width, root.height*0.08
+        #felső vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.92, root.width, root.height*0.92
+
+    MDFloatLayout:
+        pos: 0, 0
+        size: root.width, root.height
+
+        Image:
+            id: jvtrivia_icon_chaptergame
+            source: 'jv_trivia_icon.png'
+            allow_stretch: True
+            allow_stretch: True
+
+        MDLabel:
+            id: my_quote
+            size: self.size
+            text: "Futni meg lehet tanulni, focizni meg tudni kell!"
+            pos_hint: {'x': 0.3, 'center_y': 0.055}
+            size_hint: 0.65, 0.06
+
+            font_style: "Caption"
+            italic: True
+            font_size: 9
+            color: RGBA("#EDF2F4")
+            valign: "bottom"
+
+        MDLabel:
+            id: my_quote_author
+            text: "Tóth II. József"
+            pos_hint: {'x': 0.8, 'y': 0.014}
+            size_hint: 0.3, 0.1
+            text_size: self.size
+            font_style: "Caption"
+            font_size: 9
+            bold: True
+            color: RGBA("#EDF2F4")
+
+        MDFloatLayout:
+            pos: 0, root.height*0.92
+            size: root.width, root.height*0.08
+
+            MDIconButton:
+                id: my_home
+                icon: 'home-circle'
+                pos_hint: {'center_x': 0.1, 'center_y': 0.04}
+                size_hint: None, None
+                size: 1,1
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 32
+                on_release:
+                    self.parent.parent.parent.go_to_main_menu()
+
+            MDIconButton:
+                id: my_gamepad
+                icon: 'gamepad-variant'
+                pos_hint: {'center_x': 0.26, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_freegame()
+
+            MDIconButton:
+                id: my_soccer
+                icon: 'soccer-field'
+                pos_hint: {'center_x': 0.42, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_chaptergame()
+
+            MDIconButton:
+                id: my_exam
+                icon: 'account-school'
+                pos_hint: {'center_x': 0.58, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_gamescreen()
+
+            MDIconButton:
+                id: my_icon_volume
+                icon: 'volume-mute'
+                pos_hint: {'center_x': 0.74, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                icon_color: RGBA("#EDF2F4")
+                on_press:
+                    self.parent.parent.parent.set_the_background_music()
+                    self.icon_color = RGBA("#EDF2F4")
+
+
+            MDIconButton:
+                id: my_exit
+                icon: 'exit-run'
+                pos_hint: {'center_x': 0.9, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_exit()
+
+    MDFloatLayout:
+        pos: 0, 0
+        size: root.width, root.height
+
+        MDLabel:
+            id: label_question_chaptergame
+            pos_hint: {'x': 0.05, 'center_y': 0.86}
+            size_hint: 0.9, 0.12
+            text_size: self.size
+            valign: 'middle'
+            font_size: 16
+            font_style: "Subtitle1"
+            bold: True
+            color: RGBA('#3B3838')
+
+
+        MDGridLayout:
+            pos_hint:{'x': 0.1, 'y': 0.25}
+            size_hint: None, None
+            size: root.width *0.8, root.height *0.55
+            cols: 1
+            spacing: 15
+
+            MDRaisedButton:
+                text: "A"
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+
+                # Gomb háttere
+                md_bg_color: '#EDF2F4'
+
+                font_name: "Roboto"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+
+                line_color: RGBA("#EDF2F4")
+                #bg_hint_color: app.theme_cls.primary_dark
+
+                # Border beállítása
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+
+                pos_hint: {'center_x': 0.1}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_AA
+                group: 'freegamebutton'
+                on_release:
+                    my_button_AA.disabled = True
+                    my_button_BB.disabled = True
+                    my_button_CC.disabled = True
+                    my_button_DD.disabled = True
+                    my_button_AA.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_BB.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_CC.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_DD.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_AA.disabled_color = RGBA('#404040')
+                    my_button_BB.disabled_color = RGBA('#404040')
+                    my_button_CC.disabled_color = RGBA('#404040')
+                    my_button_DD.disabled_color = RGBA('#404040')
+                    my_button_AA.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+            MDRaisedButton:
+                text: "B"
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+
+                # Gomb háttere
+                md_bg_color: '#EDF2F4'
+
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+
+                line_color: RGBA("#EDF2F4")
+                #bg_hint_color: app.theme_cls.primary_dark
+
+                # Border beállítása
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_BB
+                group: 'freegamebutton'
+                on_release:
+                    my_button_AA.disabled = True
+                    my_button_BB.disabled = True
+                    my_button_CC.disabled = True
+                    my_button_DD.disabled = True
+                    my_button_AA.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_BB.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_CC.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_DD.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_AA.disabled_color = RGBA('#404040')
+                    my_button_BB.disabled_color = RGBA('#404040')
+                    my_button_CC.disabled_color = RGBA('#404040')
+                    my_button_DD.disabled_color = RGBA('#404040')
+                    my_button_BB.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+            MDRaisedButton:
+                text: "C"
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+                md_bg_color: '#EDF2F4'
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+                line_color: RGBA("#EDF2F4")
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_CC
+                group: 'freegamebutton'
+                on_release:
+                    my_button_AA.disabled = True
+                    my_button_BB.disabled = True
+                    my_button_CC.disabled = True
+                    my_button_DD.disabled = True
+                    my_button_AA.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_BB.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_CC.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_DD.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_AA.disabled_color = RGBA('#404040')
+                    my_button_BB.disabled_color = RGBA('#404040')
+                    my_button_CC.disabled_color = RGBA('#404040')
+                    my_button_DD.disabled_color = RGBA('#404040')
+                    my_button_CC.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+            MDRaisedButton:
+                text: "D"
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+                md_bg_color: '#EDF2F4'
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+                line_color: RGBA("#EDF2F4")
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_DD
+                group: 'freegamebutton'
+                on_release:
+                    my_button_AA.disabled = True
+                    my_button_BB.disabled = True
+                    my_button_CC.disabled = True
+                    my_button_DD.disabled = True
+                    my_button_AA.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_BB.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_CC.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_DD.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_AA.disabled_color = RGBA('#404040')
+                    my_button_BB.disabled_color = RGBA('#404040')
+                    my_button_CC.disabled_color = RGBA('#404040')
+                    my_button_DD.disabled_color = RGBA('#404040')
+                    my_button_DD.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+        MDIconButton:
+            id: my_pause_chaptergame
+            icon: 'pause-circle'
+            pos_hint: {'x': 0.835, 'center_y': 0.16}
+            size_hint: None, None
+            size: self.size
+            theme_text_color: "Custom"
+            text_color: RGBA("#EDF2F4")
+            user_font_size: 0
+            icon_size: 36
+            disabled: True
+            disabled_color: (0,0,0,0)
+            on_release:
+                self.parent.parent.pause_chaptergame()
+
+        MDIconButton:
+            id: my_play_chaptergame
+            icon: 'play-circle'
+            pos_hint: {'x': 0.835, 'center_y': 0.16}
+            size_hint: None, None
+            size: self.size
+            theme_text_color: "Custom"
+            text_color: RGBA("#EDF2F4")
+            user_font_size: 0
+            icon_size: 36
+            disabled: True
+            disabled_color: (0,0,0,0)
+            on_release:
+                self.parent.parent.resume_chaptergame()
+
+
+
+
+
+        MDCard:
+            pos_hint: {'x': 0.4, 'y': 0.12}
+            size: root.width*0.4,root.height*0.09
+            size_hint: None, None
+            md_bg_color: RGBA("#8D99AD")
+            elevation: 3.5
+            radius: 5,5,5,5
+            shadow_offset: 0, 3
+
+            MDRelativeLayout:
+
+                MDLabel:
+                    text: "EREDMÉNYJELZŐ"
+                    pos_hint: {'center_x':0.5, 'center_y': 0.8}
+                    size: self.size
+                    halign: "center"
+                    font_style: 'Caption'
+                    color: RGBA('#EDF2F4')
+                    font_size: 12
+                    bold: True
+
+                MDLabel:
+                    text: "VS"
+                    pos_hint: {'center_x':0.5, 'center_y': 0.35}
+                    size: self.size
+                    halign: "center"
+                    font_style: 'Caption'
+                    color: RGBA('#EDF2F4')
+                    font_size: 10
+                    bold: True
+                    italic: True
+
+                MDIcon:
+                    id: label_score_icon
+                    icon: 'emoticon-cool'
+                    pos_hint: {'center_x':0.2, 'center_y': 0.35}
+                    theme_text_color: "Custom"
+                    text_color: RGBA('#50F263')
+                    font_size: 25
+
+                MDIcon:
+                    id: label_wrong_icon
+                    icon: 'emoticon-angry'
+                    pos_hint: {'center_x': 0.7, 'center_y': 0.35}
+                    theme_text_color: "Custom"
+                    text_color: RGBA("#F25063")
+                    font_size: 25
+
+                MDLabel:
+                    id: label_score_chaptergame
+                    size: self.size
+                    halign: "center"
+                    pos_hint: {'center_x': 0.34, 'center_y': 0.35}
+                    font_style: "Overline"
+                    font_size: 25
+                    bold: True
+                    color: RGBA("#50F263")
+
+                MDLabel:
+                    id: sum_label_questions_chaptergame
+                    size: self.size
+                    halign: "center"
+                    pos_hint: {'center_x': 0.84, 'center_y': 0.35}
+                    font_style: "Overline"
+                    font_size: 25
+                    bold: True
+                    color: RGBA("#F25063")
+
+<GameScreen>:
+    name: "game_screen"
+    canvas:
+        Color:
+            rgba: RGBA("#8D99AE")
+        Rectangle:
+            pos: self.x, self.y
+            size: self.width, self.height
+
+        # Alsó menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, 0
+            size: root.width, root.height*0.08
+        # Felső menü
+        Color:
+            rgba: RGBA("#2B2D42")
+        Rectangle:
+            pos: 0, root.height * 0.92
+            size: root.width, root.height*0.08
+        #Alsó vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.08, root.width, root.height*0.08
+        #felső vonal
+        Color:
+            rgba: RGBA("#EDF2F4")
+        Line:
+            width: 1
+            points: 0, root.height*0.92, root.width, root.height*0.92
+
+
+    MDFloatLayout:
+        pos: 0, 0
+        size: root.width, root.height
+
+        MDFloatLayout:
+            pos: 0, root.height*0.92
+            size: root.width, root.height*0.08
+
+            MDIconButton:
+                id: my_home
+                icon: 'home-circle'
+                pos_hint: {'center_x': 0.1, 'center_y': 0.04}
+                size_hint: None, None
+                size: 1,1
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 32
+                on_release:
+                    self.parent.parent.parent.go_to_main_menu()
+
+            MDIconButton:
+                id: my_gamepad
+                icon: 'gamepad-variant'
+                pos_hint: {'center_x': 0.26, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_freegame()
+
+            MDIconButton:
+                id: my_soccer
+                icon: 'soccer-field'
+                pos_hint: {'center_x': 0.42, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_chaptergame()
+
+            MDIconButton:
+                id: my_exam
+                icon: 'account-school'
+                pos_hint: {'center_x': 0.58, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_gamescreen()
+
+            MDIconButton:
+                id: my_icon_volume
+                icon: 'volume-mute'
+                pos_hint: {'center_x': 0.74, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                icon_color: RGBA("#EDF2F4")
+                on_press:
+                    self.parent.parent.parent.set_the_background_music()
+                    self.icon_color = RGBA("#EDF2F4")
+
+
+            MDIconButton:
+                id: my_exit
+                icon: 'exit-run'
+                pos_hint: {'center_x': 0.9, 'center_y': 0.04}
+                size_hint: None, None
+                size: 0.1, 0.07
+                theme_text_color: "Custom"
+                text_color: RGBA("#EDF2F4")
+                user_font_size: 14
+                on_release:
+                    self.parent.parent.parent.go_to_exit()
+
+        Image:
+            id: jvtrivia_icon_gamescreen
+            source: 'jv_trivia_icon.png'
+            allow_stretch: True
+            allow_stretch: True
+
+        MDFloatLayout:
+            pos: 0, root.height*0.08
+            size: root.width, root.height*0.08
+
+        MDLabel:
+            id: my_quote
+            size: self.size
+            text: "Futni meg lehet tanulni, focizni meg tudni kell!"
+            pos_hint: {'x': 0.3, 'center_y': 0.055}
+            size_hint: 0.65, 0.06
+
+            font_style: "Caption"
+            italic: True
+            font_size: 9
+            color: RGBA("#EDF2F4")
+            valign: "bottom"
+
+        MDLabel:
+            id: my_quote_author
+            size: self.size
+            text: "Tóth II. József"
+            pos_hint: {'x': 0.8, 'center_y': 0.02}
+            size_hint: 1, 0.02
+            font_style: "Caption"
+            font_size: 9
+            bold: True
+            color: RGBA("#EDF2F4")
+
+    MDFloatLayout:
+        pos: 0, 0
+        size: root.width, root.height
+
+        MDLabel:
+            id: label_question_gamescreen
+            pos_hint: {'x': 0.05, 'center_y': 0.86}
+            size_hint: 0.9, 0.12
+            text_size: self.size
+            valign: 'middle'
+            font_size: 20
+            font_style: "Subtitle1"
+            bold: True
+            color: RGBA('#3B3838')
+
+        MDGridLayout:
+            pos_hint:{'x': 0.1, 'y': 0.25}
+            size_hint: None, None
+            size: root.width *0.8, root.height *0.55
+            cols: 1
+            spacing: 15
+
+            MDRaisedButton:
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+
+                # Gomb háttere
+                md_bg_color: RGBA('#EDF2F4')
+
+                font_name: "Roboto"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+
+                line_color: RGBA("#EDF2F4")
+                #bg_hint_color: app.theme_cls.primary_dark
+
+                # Border beállítása
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+
+                pos_hint: {'center_x': 0.1}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_AAA
+                group: 'freegamebutton'
+                on_release:
+                    my_button_AAA.disabled = True
+                    my_button_BBB.disabled = True
+                    my_button_CCC.disabled = True
+                    my_button_DDD.disabled = True
+                    my_button_AAA.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_BBB.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_CCC.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_DDD.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_AAA.disabled_color = RGBA('#404040')
+                    my_button_BBB.disabled_color = RGBA('#404040')
+                    my_button_CCC.disabled_color = RGBA('#404040')
+                    my_button_DDD.disabled_color = RGBA('#404040')
+                    my_button_AAA.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+
+            MDRaisedButton:
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+
+                # Gomb háttere
+                md_bg_color: '#EDF2F4'
+
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+
+                line_color: RGBA("#EDF2F4")
+                #bg_hint_color: app.theme_cls.primary_dark
+
+                # Border beállítása
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_BBB
+                group: 'freegamebutton'
+                on_release:
+                    my_button_AAA.disabled = True
+                    my_button_BBB.disabled = True
+                    my_button_CCC.disabled = True
+                    my_button_DDD.disabled = True
+                    my_button_BBB.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_AAA.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_CCC.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_DDD.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_AAA.disabled_color = RGBA('#404040')
+                    my_button_CCC.disabled_color = RGBA('#404040')
+                    my_button_DDD.disabled_color = RGBA('#404040')
+                    my_button_BBB.disabled_color = RGBA('#404040')
+                    my_button_BBB.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+            MDRaisedButton:
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+                md_bg_color: '#EDF2F4'
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+                line_color: RGBA("#EDF2F4")
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_CCC
+                group: 'freegamebutton'
+                on_release:
+                    my_button_AAA.disabled = True
+                    my_button_BBB.disabled = True
+                    my_button_CCC.disabled = True
+                    my_button_DDD.disabled = True
+                    my_button_CCC.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_AAA.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_BBB.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_DDD.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_AAA.disabled_color = RGBA('#404040')
+                    my_button_BBB.disabled_color = RGBA('#404040')
+                    my_button_DDD.disabled_color = RGBA('#404040')
+                    my_button_CCC.disabled_color = RGBA('#404040')
+                    my_button_CCC.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+            MDRaisedButton:
+
+                elevation: 3
+                root_button_anim: True
+                hint_animation: True
+                theme_text_color: "Custom"
+                text_color: RGBA('#404040')
+                md_bg_color: '#EDF2F4'
+                font_name: "Arial"
+                halign: "center"
+                text_size: "20"
+                font_style: 'Body2'
+                bold: True
+                italic: True
+                line_color: RGBA("#EDF2F4")
+                line_width: 1
+                line_color: RGBA("#EDF2F4")
+                pos_hint: {'center_x': 0.5}
+                size_hint: root.width *0.3, root.width *0.3
+                id: my_button_DDD
+                group: 'freegamebutton'
+                on_release:
+                    my_button_AAA.disabled = True
+                    my_button_BBB.disabled = True
+                    my_button_CCC.disabled = True
+                    my_button_DDD.disabled = True
+                    my_button_DDD.md_bg_color_disabled = RGBA('#F25063')
+                    my_button_AAA.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_BBB.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_CCC.md_bg_color_disabled = RGBA('#EDF2F4')
+                    my_button_AAA.disabled_color = RGBA('#404040')
+                    my_button_CCC.disabled_color = RGBA('#404040')
+                    my_button_BBB.disabled_color = RGBA('#404040')
+                    my_button_DDD.disabled_color = RGBA('#404040')
+                    my_button_DDD.elevation = 5
+                    on_active: True
+                    self.parent.parent.parent.make_decision(self, self.text, 15, 2.5)
+
+        MDIconButton:
+            id: pause_gamescreen
+            icon: 'pause-circle'
+            pos_hint: {'x': 0.835, 'center_y': 0.16}
+            size_hint: None, None
+            size: self.size
+            theme_text_color: "Custom"
+            text_color: RGBA("#EDF2F4")
+            user_font_size: 0
+            icon_size: 36
+            disabled: True
+            disabled_color: (0,0,0,0)
+            on_release:
+                self.parent.parent.pause_gamescreen()
+
+        MDIconButton:
+            id: play_gamescreen
+            icon: 'play-circle'
+            pos_hint: {'x': 0.835, 'center_y': 0.16}
+            size_hint: None, None
+            size: self.size
+            theme_text_color: "Custom"
+            text_color: RGBA("#EDF2F4")
+            user_font_size: 0
+            icon_size: 36
+            disabled: True
+            disabled_color: (0,0,0,0)
+            on_release:
+                self.parent.parent.resume_gamescreen()
+
+
+        MDCard:
+            id: gamescreen_scoreboard
+            pos_hint: {'x': 0.4, 'y': 0.12}
+            size: root.width*0.4,root.height*0.09
+            size_hint: None, None
+            md_bg_color: RGBA("#8D99AD")
+            elevation: 3.5
+            radius: 5,5,5,5
+            shadow_offset: 0, 3
+
+            MDRelativeLayout:
+
+                MDLabel:
+                    text: "EREDMÉNYJELZŐ"
+                    pos_hint: {'center_x':0.5, 'center_y': 0.8}
+                    size: self.size
+                    halign: "center"
+                    font_style: 'Caption'
+                    color: RGBA('#EDF2F4')
+                    font_size: 12
+                    bold: True
+
+                MDLabel:
+                    text: "VS"
+                    pos_hint: {'center_x':0.5, 'center_y': 0.35}
+                    size: self.size
+                    halign: "center"
+                    font_style: 'Caption'
+                    color: RGBA('#EDF2F4')
+                    font_size: 10
+                    bold: True
+                    italic: True
+
+                MDIcon:
+                    id: label_score_icon
+                    icon: 'emoticon-cool'
+                    pos_hint: {'center_x':0.2, 'center_y': 0.35}
+                    theme_text_color: "Custom"
+                    text_color: RGBA('#50F263')
+                    font_size: 25
+
+                MDIcon:
+                    id: label_wrong_icon
+                    icon: 'emoticon-angry'
+                    pos_hint: {'center_x': 0.7, 'center_y': 0.35}
+                    theme_text_color: "Custom"
+                    text_color: RGBA("#F25063")
+                    font_size: 25
+
+                MDLabel:
+                    id: label_score_gamescreen
+                    size: self.size
+                    halign: "center"
+                    pos_hint: {'center_x': 0.34, 'center_y': 0.35}
+                    font_style: "Overline"
+                    font_size: 25
+                    bold: True
+                    color: RGBA("#50F263")
+
+                MDLabel:
+                    id: sum_label_questions_gamescreen
+                    size: self.size
+                    halign: "center"
+                    pos_hint: {'center_x': 0.84, 'center_y': 0.35}
+                    font_style: "Overline"
+                    font_size: 25
+                    bold: True
+                    color: RGBA("#F25063")
+
+
+
